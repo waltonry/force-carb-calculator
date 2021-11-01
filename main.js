@@ -9,8 +9,8 @@ const celInput = unitToggleContainer.querySelector("#cel");
 const fahInput = unitToggleContainer.querySelector("#fah");
 
 unitToggleButton.addEventListener("click", toggleUnit);
-celInput.addEventListener("click", toggleUnit(e));
-fahInput.addEventListener("click", toggleUnit(e));
+celInput.addEventListener("click", toggleUnit());
+fahInput.addEventListener("click", toggleUnit());
 
 inputs.forEach((input) => {
   validateInput(input);
@@ -21,14 +21,15 @@ function setInitialValues() {
   pressureInput.value = localStorage.getItem("pressure") ?? 12;
   tempInput.value = localStorage.getItem("temp") ?? 36;
   timeInput.value = localStorage.getItem("time") ?? 120;
-  // celInput.checked = localStorage.getItem("cel") === "true" ?? true;
+  celInput.checked = localStorage.getItem("cel") == "true" ?? true;
+  toggleUnit()
 }
 
 function storeUserValues() {
   localStorage.setItem("pressure", pressureInput.value);
   localStorage.setItem("temp", tempInput.value);
   localStorage.setItem("time", timeInput.value);
-  // localStorage.setItem("cel", celInput.checked);
+  localStorage.setItem("cel", celInput.checked);
 }
 
 function validateInput(input) {
@@ -64,8 +65,7 @@ function outputResult() {
   output.innerHTML = result.toFixed(2);
 }
 
-function toggleUnit(e) {
-  e.preventDefault;
+function toggleUnit() {
   const currentTemp = tempInput.value;
   const unitLabel = document.querySelector("[data-unit]");
 
